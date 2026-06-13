@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="results-grid">
+    <div class="card media-card">
+        <h2>Input Media</h2>
+        {% if results.media_type == 'image' %}
+            <img src="/uploads/{{ results.source }}" alt="Uploaded image" class="preview-media" />
+        {% else %}
+            <video controls class="preview-media">
+                <source src="/uploads/{{ results.source }}" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+        {% endif %}
+        <div class="info-box">
+            <strong>Objects detected:</strong> {{ results.objects | length }}
+        </div>
+        {% if results.motion_events %}
+            <div class="info-box">
+                <strong>Motion events:</strong>
+                <ul>
+                    {% for event in results.motion_events %}
+                        <li>{{ event.label }} is {{ event.motion }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+    <div class="card detail-card">
+        <h2>Scene Description</h2>
+        <ul class="description-list">
+            {% for sentence in results.narrative %}
+                <li>{{ sentence }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<div class="visualization-grid">
+    <div class="card">
+        <h3>Object Table</h3>
+        <table>
+            <thead>
+                <tr><th>Label</th><th>Confidence</th><th>Depth</th><th>Size</th></tr>
+            </thead>
+            <tbody>
+                {% for obj in results.objects %}
+                    <tr>
+                        <td>{{ obj.label }}</td>
+                        <td>{{ obj.confidence }}</td>
+                        <td>{{ obj.depth }}</td>
+                        <td>{{ obj.size }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="card">
+        <h3>Scene Graph (Relationships)</h3>
+        <ul class="graph-list">
+            {% for edge in results.scene_graph %}
+                <li><strong>{{ edge.source }}</strong> is <em>{{ edge.relation }}</em> <strong>{{ edge.target }}</strong></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<div class="card full-card">
+    <h3>HiSpatial Reasoning Analysis</h3>
+    <details>
+        <summary>Layer 1: Object Understanding</summary>
+        <pre>{{ results.reasoning.layer1_object_understanding | tojson(indent=2) }}</pre>
+    </details>
+    <details>
+        <summary>Layer 2: Pairwise Relationships</summary>
+        <pre>{{ results.reasoning.layer2_pairwise_spatial_relationships | tojson(indent=2) }}</pre>
+    </details>
+    <details>
+        <summary>Layer 3: Group Interactions</summary>
+        <pre>{{ results.reasoning.layer3_group_interaction_analysis | tojson(indent=2) }}</pre>
+    </details>
+    <details>
+        <summary>Layer 4: Scene Context</summary>
+        <pre>{{ results.reasoning.layer4_scene_context | tojson(indent=2) }}</pre>
+    </details>
+</div>
+{% endblock %}

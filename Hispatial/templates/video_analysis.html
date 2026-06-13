@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card full-card">
+    <h2>Video Analysis</h2>
+    <p>Upload a video to detect objects, compute motion cues, and generate a HiSpatial scene summary.</p>
+    <form action="{{ url_for('upload_video') }}" method="post" enctype="multipart/form-data" class="upload-form">
+        <label class="file-input">
+            <span>Select Video</span>
+            <input type="file" name="video" accept="video/*" required />
+        </label>
+        <button type="submit" class="button">Analyze Video</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="hero-card">
+    <h1>HiSpatial Environmental Perception</h1>
+    <p>Analyze scenes with segmentation, depth, spatial relationships, and natural language explanation.</p>
+    <div class="card-grid">
+        <article>
+            <h2>Image Analysis</h2>
+            <p>Upload a still image and extract object masks, depth, and scene relationships.</p>
+            <a class="button" href="{{ url_for('image_analysis') }}">Analyze Image</a>
+        </article>
+        <article>
+            <h2>Video Analysis</h2>
+            <p>Upload a video for frame-based object perception and motion relationship insights.</p>
+            <a class="button" href="{{ url_for('video_analysis') }}">Analyze Video</a>
+        </article>
+        <article>
+            <h2>Live Camera</h2>
+            <p>Capture a live webcam feed and generate real-time spatial descriptions.</p>
+            <a class="button" href="{{ url_for('live_camera') }}">Use Live Camera</a>
+        </article>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card full-card live-card">
+    <h2>Live Camera</h2>
+    <p>Use your browser webcam for real-time frame processing and scene understanding.</p>
+    <div class="video-panel">
+        <video id="camera" autoplay muted playsinline></video>
+        <canvas id="captureCanvas" width="640" height="480" hidden></canvas>
+    </div>
+    <div class="live-controls">
+        <button id="startButton" class="button">Start Live Analysis</button>
+        <button id="stopButton" class="button secondary">Stop</button>
+    </div>
+    <div id="liveReport" class="live-report"></div>
+</div>
+<script src="{{ url_for('static', filename='js/live_camera.js') }}"></script>
+{% endblock %}

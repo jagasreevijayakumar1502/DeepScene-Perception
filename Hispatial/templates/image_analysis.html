@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card full-card">
+    <h2>Image Analysis</h2>
+    <p>Upload a photo and receive full object segmentation, depth estimation, scene graph generation, and HiSpatial reasoning.</p>
+    <form action="{{ url_for('upload_image') }}" method="post" enctype="multipart/form-data" class="upload-form">
+        <label class="file-input">
+            <span>Select Image</span>
+            <input type="file" name="image" accept="image/*" required />
+        </label>
+        <button type="submit" class="button">Analyze Image</button>
+    </form>
+</div>
+{% endblock %}
